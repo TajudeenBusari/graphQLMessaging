@@ -1,0 +1,91 @@
+############################
+# .NET BUILD ARTIFACTS
+############################
+bin/
+obj/
+out/
+Debug/
+Release/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+############################
+# VISUAL STUDIO
+############################
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.ide/
+
+############################
+# VISUAL STUDIO CODE
+############################
+.vscode/
+.history/
+
+############################
+# NUGET
+############################
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+############################
+# ENVIRONMENT FILES
+############################
+.env
+*.secret.json
+appsettings.*.json
+
+# Allow the main config to stay tracked
+!appsettings.json
+
+############################
+# GRAPHQL SPECIFIC (HotChocolate, StrawberryShake, GraphQL.NET)
+############################
+
+# Hot Chocolate schema cache
+*.graphql.schema
+*.graphql.cache
+
+# StrawberryShake generated client code
+**/Generated/
+**/StrawberryShake/
+
+# Apollo / Relay / OSS GraphQL tools
+.graphqlrc
+.graphqlrc.json
+.graphqlrc.yaml
+.graphqlrc.yml
+
+# Tool-generated schema dumps
+schema.graphql
+schema.graphql.json
+schema.gql
+
+############################
+# RIDER / JETBRAINS
+############################
+.idea/
+*.sln.iml
+
+############################
+# OS FILES
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# TEST PROJECTS
+############################
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
