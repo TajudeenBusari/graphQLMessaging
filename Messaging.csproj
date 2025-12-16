@@ -6,4 +6,18 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Kafka\" />
+      <Folder Include="NATS\" />
+      <Folder Include="Utils\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\common-utils\common-utils.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
+    </ItemGroup>
+
 </Project>
