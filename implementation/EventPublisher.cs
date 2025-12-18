@@ -24,10 +24,11 @@ public class EventPublisher: IEventPublisher
     }
     
     
-    public Task PublishAsync<TEvent>(TEvent @event, CancellationToken ctx) where TEvent : class
+    public async Task PublishAsync<TEvent>(TEvent @event, CancellationToken ctx) where TEvent : class
     {
+        ArgumentNullException.ThrowIfNull(@event);
         var destination = _eventRouting.GetDestinationForEvent<TEvent>();
         _logger.LogInformation("Publishing event of type {EventType} to destination {Destination}", typeof(TEvent).FullName, destination);
-        return _messagePublisher.PublishAsync(@event, destination, ctx);
+        await _messagePublisher.PublishAsync(@event, destination, ctx);
     }
 }

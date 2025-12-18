@@ -5,9 +5,11 @@
 //</copyright>
 
 
+using messaging.Contracts;
+
 namespace messaging.Interfaces;
 
 public interface IMessagePublisher
 {
-    Task PublishAsync<TMessage>(TMessage message, string destination, CancellationToken cancellationToken = default) where TMessage : class;
+    Task PublishAsync<TMessage>(TMessage message, EventDestination destination, CancellationToken cancellationToken = default) where TMessage : class;
 }

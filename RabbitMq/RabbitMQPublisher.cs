@@ -5,6 +5,7 @@
 //</copyright>
 
 
+using messaging.Contracts;
 using messaging.Interfaces;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -23,15 +24,15 @@ public class RabbitMqPublisher: IMessagePublisher, IAsyncDisposable
     }
     
     
-    public async Task PublishAsync<TMessage>(TMessage message, string destination, CancellationToken cancellationToken = default) where TMessage : class
+    public async Task PublishAsync<TMessage>(TMessage message, EventDestination destination, CancellationToken cancellationToken = default) where TMessage : class
     {
         ArgumentNullException.ThrowIfNull(message);
-        ArgumentException.ThrowIfNullOrEmpty(destination);
+        ArgumentNullException.ThrowIfNull(destination);
         var body = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(message);
-        _logger.LogInformation("Publishing message {MessageType} to RabbitMQ {Destination}", typeof(TMessage).FullName, destination);
+        _logger.LogInformation("Publishing message {MessageType} to exchange {Exchange} with routing key {RoutingKey}", typeof(TMessage).FullName, destination.ExchangeOrTopic, destination.RoutingKeyOrSubject);
         await _channel.BasicPublishAsync(
-            exchange: destination, //exchange == destination
-            routingKey: string.Empty, //or derived from routing strategy
+            exchange: destination.ExchangeOrTopic,
+            routingKey: destination.RoutingKeyOrSubject, //or derived from routing strategy
             body: body,
             cancellationToken: cancellationToken
         );

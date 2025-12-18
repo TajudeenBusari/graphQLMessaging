@@ -5,9 +5,12 @@
 //</copyright>
 
 
+using messaging.Contracts;
+
 namespace messaging.Interfaces;
 
 public interface IEventRouting
 {
-    string GetDestinationForEvent<TEvent>();
+    //string GetDestinationForEvent<TEvent>();
+    EventDestination GetDestinationForEvent<TEvent>();
 }

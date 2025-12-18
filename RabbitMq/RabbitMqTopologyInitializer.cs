@@ -21,7 +21,7 @@ public class RabbitMqTopologyInitializer: IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         await _channel.ExchangeDeclareAsync(
-            exchange: "product.created",
+            exchange: "product.exchange",
             type: ExchangeType.Fanout,
             durable: true, cancellationToken: cancellationToken);
 
