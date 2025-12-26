@@ -1,10 +1,3 @@
-// <copyright file="ProductUpdatedEvent"
-//Author="tjtechy">
-//EcommerceMicroservicesDotNet
-//Copyright (C) TJTECHY
-//</copyright>
-
-
 namespace messaging.Contracts;
 
 public record ProductUpdatedEvent(

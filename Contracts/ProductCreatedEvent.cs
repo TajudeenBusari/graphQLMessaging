@@ -1,12 +1,3 @@
-// <copyright file="ProductCreatedEvent"
-//Author="tjtechy">
-//EcommerceMicroservicesDotNet
-//Copyright (C) TJTECHY
-//</copyright>
-
-
-using common_utils.Shared.Domain;
-
 namespace messaging.Contracts;
 
 /// <summary>

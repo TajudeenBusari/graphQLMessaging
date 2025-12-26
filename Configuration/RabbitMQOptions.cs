@@ -1,10 +1,3 @@
-// <copyright file="RabbitMQOptions"
-//Author="tjtechy">
-//EcommerceMicroservicesDotNet
-//Copyright (C) TJTECHY
-//</copyright>
-
-
 namespace messaging.Configuration;
 
 // ReSharper disable once InconsistentNaming
@@ -16,5 +9,4 @@ public class RabbitMQOptions
     public int Port { get; init; } = 5672;
     public string UserName { get; init; } = "guest";
     public string Password { get; init; } = "guest";
-    
 }

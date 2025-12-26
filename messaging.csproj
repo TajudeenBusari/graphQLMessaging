@@ -7,17 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Kafka\" />
-      <Folder Include="NATS\" />
-      <Folder Include="Utils\" />
+        <Folder Include="Kafka\"/>
+        <Folder Include="NATS\"/>
+        <Folder Include="Utils\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\common-utils\common-utils.csproj" />
+        <ProjectReference Include="..\common-utils\common-utils.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
+        <PackageReference Include="RabbitMQ.Client" Version="7.2.0"/>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

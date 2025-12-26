@@ -1,10 +1,3 @@
-// <copyright file="DependencyInjection"
-//Author="tjtechy">
-//EcommerceMicroservicesDotNet
-//Copyright (C) TJTECHY
-//</copyright>
-
-
 using messaging.Configuration;
 using messaging.implementation;
 using messaging.Interfaces;
@@ -18,20 +11,39 @@ namespace messaging;
 
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Should handle all environments (Aspire, Docker and Local) configurations for RabbitMQ messaging
+    /// and register necessary services into the IServiceCollection.
+    /// </summary>
     public static IServiceCollection AddRabbitMqMessaging(
-        this IServiceCollection services, IConfiguration configuration)
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        services.Configure<RabbitMQOptions>(
-            configuration.GetSection("RabbitMQ"));
+        services.Configure<RabbitMQOptions>(configuration.GetSection("RabbitMQ"));
         services.AddSingleton<IConnection>(sp =>
         {
+            //first try Aspire connection string first
+            //-------------------------------------------//
+            var aspireRabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
+            var factoryRabbitMq = new ConnectionFactory();
+            if (!string.IsNullOrEmpty(aspireRabbitMqConnectionString))
+            {
+                factoryRabbitMq.Uri = new Uri(aspireRabbitMqConnectionString);
+                return factoryRabbitMq.CreateConnectionAsync()
+                    .GetAwaiter()
+                    .GetResult();
+            }
+            
+            //-------------------------------------------//
+            
+            //else use the configured options Local / Docker Compose
             var options = sp.GetRequiredService<IOptions<RabbitMQOptions>>().Value;
             var factory = new ConnectionFactory
             {
                 HostName = options.HostName,
                 Port = options.Port,
                 UserName = options.UserName,
-                Password = options.Password
+                Password = options.Password,
             };
             return factory.CreateConnectionAsync()
                 .GetAwaiter()
@@ -45,14 +57,15 @@ public static class DependencyInjection
                 .GetAwaiter()
                 .GetResult();
         });
+
         //Register other messaging services like IMessagePublisher, IEventPublisher, IEventRouting etc.
         services.AddSingleton<IMessagePublisher, RabbitMqPublisher>();
         services.AddSingleton<IEventPublisher, EventPublisher>();
         services.AddSingleton<IEventRouting, DefaultEventRouting>();
-        
+
         // You can register more messaging related services here as needed.
         services.AddHostedService<RabbitMqTopologyInitializer>();
-        
+
         // Return the modified service collection
         return services;
     }
